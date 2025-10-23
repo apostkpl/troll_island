@@ -1,0 +1,10 @@
+# Any compiled classes
+*.class
+# VSCode cache folder
+.vscode/
+# Jar files
+*.jar
+*.war
+# Logs or temp files
+*.log
+/tmp/

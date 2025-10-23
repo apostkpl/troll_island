@@ -1,0 +1,20 @@
+{
+    "weapons":
+    [
+        {"name": "short sword", "damage": 5, "type": "sword"},
+        {"name": "medium sword", "damage": 7, "type": "sword"},
+        {"name": "long sword", "damage": 10, "type": "sword"},
+        {"name": "short bow", "damage": 5, "type": "bow"},
+        {"name": "medium bow", "damage": 7, "type": "bow"},
+        {"name": "long bow", "damage": 10, "type": "bow"},
+        {"name": "hammer", "damage": 8, "type": "hammer"},
+        {"name": "axe", "damage": 8, "type": "axe"},
+        {"name": "great axe", "damage": 12, "type": "axe"}
+    ],
+    "potions":
+    [
+        {"name": "light potion", "healthPoints": 10, "type": "potion"},
+        {"name": "medium potion", "healthPoints": 25, "type": "potion"},
+        {"name": "full potion", "healthPoints": 1000, "type": "potion"}
+    ]
+}
