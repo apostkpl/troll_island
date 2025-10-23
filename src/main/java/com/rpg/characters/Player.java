@@ -19,15 +19,6 @@ public abstract class Player {
     // Attack method. To be implemented by each class
     public abstract int attack();
 
-    public void takeDamage(int damage) {
-        int damageTaken = Math.max(0, this.getHealth() - damage);
-        this.health -= damageTaken;
-
-        // Make sure health never gets negative when taking damage
-        if (this.health < 0) {
-            this.health = 0;
-        }
-    }
 
     // Universal Getters
     public String getName() {
@@ -74,12 +65,22 @@ public abstract class Player {
         }
 
         if (amount > this.getGold()) {
-            System.out.println("You don't have enough gold for this purchase.");
-            System.out.println("Your current gold amount: " + this.getGold() + ", Item cost: " + amount);
+            System.out.println("\nYou don't have enough gold for this purchase.");
+            System.out.printf("\nYour current gold amount: %d, Item cost: %d\n", this.getGold(), amount);
             return false;
         }
 
         this.gold -= amount;
         return true;
+    }
+
+        public void takeDamage(int damage) {
+        int damageTaken = Math.max(0, this.getHealth() - damage);
+        this.health -= damageTaken;
+
+        // Make sure health never gets negative when taking damage
+        if (this.health < 0) {
+            this.health = 0;
+        }
     }
 }
