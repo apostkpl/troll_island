@@ -6,7 +6,7 @@ public class Ranger extends Player {
 
     // Warrior constructor
     public Ranger(String name) {
-        super(name, 50, 100);
+        super(name, 50, 100, "short bow");
         // Standard Ranger initial dexterity (aka Bow bonus)
         this.dexterity = 1.5;
     }

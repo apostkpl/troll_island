@@ -1,19 +1,34 @@
 package com.rpg.characters;
 
+import com.rpg.inventory.GameItems;
+//import com.rpg.inventory.Inventory;
+// Import necessary packages for the inventory
+import com.rpg.inventory.PlayerInventory;
+//import com.rpg.inventory.Weapon;
+//import com.rpg.inventory.Potion;
+
+
 public abstract class Player {
     // Basic character info and stats
     protected String name;
     protected int health;
     protected final int MAX_HEALTH;
     protected int gold;
-
+    // The players inventory and current weapon
+    protected PlayerInventory inventory;
+    protected static int MAX_SIZE_INV = 10;
+    protected String currentWeaponName;
+    
     // Generic constructor for the abstract class
     // Extra class-unique features will be added using the class-specific constructors
-    public Player(String name, int MAX_HEALTH, int gold) {
+    public Player(String name, int MAX_HEALTH, int gold, String currentWeaponName) {
         this.name = name;
         this.MAX_HEALTH = MAX_HEALTH;
         this.health = MAX_HEALTH; // New players will always get the maximum amount of health when created
         this.gold = gold;
+        this.currentWeaponName = currentWeaponName;
+        this.inventory = new PlayerInventory(MAX_SIZE_INV);
+        inventory.addItem(GameItems.getWeapon((currentWeaponName)));
     }
 
     // Attack method. To be implemented by each class

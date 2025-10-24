@@ -6,7 +6,7 @@ public class Sorcerer extends Player {
 
     // Sorcerer constructor
     public Sorcerer(String name) {
-        super(name, 50, 100);
+        super(name, 50, 100, "short sword");
         // Standard Sorcerer initial charisma
         this.charisma = 1.5;
     }

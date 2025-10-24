@@ -6,7 +6,7 @@ public class Warrior extends Player {
 
     // Warrior constructor
     public Warrior(String name) {
-        super(name, 50, 100);
+        super(name, 50, 100, "short sword");
         // Standard Warrior initial strengh
         this.strength = 1.5;
     }
