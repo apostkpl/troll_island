@@ -1,5 +1,7 @@
 package com.rpg.characters;
 
+import com.rpg.inventory.Weapon;
+
 public class Sorcerer extends Player {
     // Sorcerer specific stats
     private double charisma; // To be used for spell damage
@@ -30,7 +32,11 @@ public class Sorcerer extends Player {
 
     @Override
     public int attack() {
-        return 10; // "10" to be replaced by a getDamage() method of class Weapon
-                   // No weapon bonus for sorcerer, because they have spells
+        Weapon weapon = this.getCurrentWeapon();
+        return weapon.use();
+    }
+
+    public int castFireball() {
+        return (int) Math.ceil(this.getCharisma() * 5);
     }
 }

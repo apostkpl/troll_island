@@ -1,5 +1,7 @@
 package com.rpg.characters;
 
+import com.rpg.inventory.Weapon;
+
 public class Ranger extends Player {
     // Ranger specific stats
     private double dexterity; // Will increase the attack effectiveness for specific weapons (Bows for Ranger)
@@ -30,6 +32,10 @@ public class Ranger extends Player {
 
     @Override
     public int attack() {
-        return (int) Math.ceil(10 * this.getDexterity()); // "10" to be replaced by a getDamage() method of class Weapon
+        Weapon weapon = this.getCurrentWeapon();
+        String weaponName = this.getCurrentWeaponName();
+        if (weaponName.toLowerCase().equals("bow")) {
+            return (int) Math.ceil(weapon.use() * this.getDexterity());
+        } else {return weapon.use();}
     }
 }

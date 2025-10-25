@@ -1,11 +1,11 @@
 package com.rpg.characters;
 
-import com.rpg.inventory.GameItems;
-//import com.rpg.inventory.Inventory;
-// Import necessary packages for the inventory
+// Import necessary packages for the Player's inventory
 import com.rpg.inventory.PlayerInventory;
-//import com.rpg.inventory.Weapon;
-//import com.rpg.inventory.Potion;
+import com.rpg.inventory.GameItems;
+import com.rpg.inventory.Item;
+import com.rpg.inventory.Weapon;
+import com.rpg.inventory.Potion;
 
 
 public abstract class Player {
@@ -18,6 +18,7 @@ public abstract class Player {
     protected PlayerInventory inventory;
     protected static int MAX_SIZE_INV = 10;
     protected String currentWeaponName;
+    protected Weapon currentWeapon;
     
     // Generic constructor for the abstract class
     // Extra class-unique features will be added using the class-specific constructors
@@ -28,7 +29,17 @@ public abstract class Player {
         this.gold = gold;
         this.currentWeaponName = currentWeaponName;
         this.inventory = new PlayerInventory(MAX_SIZE_INV);
-        inventory.addItem(GameItems.getWeapon((currentWeaponName)));
+
+        // Initialize the starting weapon, or a fallback in case it fails
+        Weapon startingWeapon = GameItems.getWeapon(currentWeaponName);
+        if (startingWeapon != null) {
+        this.currentWeapon = startingWeapon;
+        inventory.addItem(currentWeapon);
+        } else { // Use fists in case startingWeapon fails to initialize
+            Weapon fistsFallback = new Weapon("Fists", "unarmed", 1);
+            this.currentWeapon = fistsFallback;
+            System.err.printf("\nWarning: Defaulting to using your fists, %s not found in GameItems.\n", currentWeaponName);
+        }
     }
 
     // Attack method. To be implemented by each class
@@ -47,6 +58,12 @@ public abstract class Player {
     }
     public int getGold() {
         return this.gold;
+    }
+    public Weapon getCurrentWeapon() {
+        return this.currentWeapon;
+    }
+    public String getCurrentWeaponName() {
+        return this.currentWeaponName;
     }
 
     // Check if the player is alive. Will be useful during gameplay
@@ -90,12 +107,47 @@ public abstract class Player {
     }
 
         public void takeDamage(int damage) {
-        int damageTaken = Math.max(0, this.getHealth() - damage);
-        this.health -= damageTaken;
+        if (damage < 0) {return;}
+        this.health -= damage;
 
         // Make sure health never gets negative when taking damage
         if (this.health < 0) {
             this.health = 0;
         }
     }
+
+    public boolean equipWeapon(String weaponName) {
+        if (!inventory.hasItem(weaponName)) {
+        System.out.printf("ERROR: [%s] not found in %'s inventory.\n", weaponName, this.getName());
+        return false;
+        }
+
+        Item weapon = inventory.getItem(weaponName);
+        if (!(weapon instanceof Weapon)) {
+            System.out.printf("ERROR: [%s] cannot be equipped as a weapon.\n", weaponName);
+            return false;
+        }
+        this.currentWeapon = (Weapon) weapon;
+        System.out.printf("%s successfully equipped!\n", weaponName);
+        return true;
+    }
+
+    public boolean usePotion(String potionName) {
+        if (!inventory.hasItem(potionName)) {
+        System.out.printf("ERROR: [%s] not found in %'s inventory.\n", potionName, this.getName());
+        return false;
+        }
+
+        Item potion = inventory.getItem(potionName);
+        if (!(potion instanceof Potion)) {
+            System.out.printf("ERROR: [%s] cannot be used as a Potion.\n", potionName);
+            return false;
+        }
+        int healthPointsToAdd = potion.use();
+        this.heal(healthPointsToAdd);
+        System.out.printf("Successfully used %s, hp gained!\n", potionName, healthPointsToAdd);
+        inventory.removeItem(potionName); // Remove potion from Player's inventory, so it won't be used twice
+        return true;
+    }
+
 }

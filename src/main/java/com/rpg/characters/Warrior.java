@@ -1,5 +1,7 @@
 package com.rpg.characters;
 
+import com.rpg.inventory.Weapon;
+
 public class Warrior extends Player {
     // Warrior specific stats
     private double strength; // Will increase the attack effectiveness for specific weapons
@@ -30,6 +32,10 @@ public class Warrior extends Player {
 
     @Override
     public int attack() {
-        return (int) Math.ceil(10 * this.getStrength()); // "10" to be replaced by a getDamage() method of class Weapon
+        Weapon weapon = this.getCurrentWeapon();
+        String weaponName = this.getCurrentWeaponName();
+        if (weaponName.toLowerCase().equals("sword") || weaponName.toLowerCase().equals("axe")) {
+            return (int) Math.ceil(weapon.use() * this.getStrength());
+        } else {return weapon.use();}
     }
 }
