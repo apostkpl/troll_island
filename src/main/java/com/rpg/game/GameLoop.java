@@ -33,7 +33,7 @@ public class GameLoop {
     // Loop until we get valid input
     while (!validInput) {
         System.out.println("What would you like to do? (A: Attack, I: Open Inventory, R: Run, Q: Quit)\n>>> ");
-        input = scanner.nextLine().toUpperCase();
+        input = scanner.nextLine().toUpperCase().trim();
 
         // Check user input
         switch (input) {
@@ -56,7 +56,7 @@ public class GameLoop {
                 break;
             default:
                 System.out.println("Input not recognized. Please try again.");
-                // Loop runs once more
+                // validInput stays falsem Loop runs once more
         }
     }
 }
