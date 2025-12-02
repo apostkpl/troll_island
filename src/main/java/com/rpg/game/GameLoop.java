@@ -56,7 +56,7 @@ public class GameLoop {
                 break;
             default:
                 System.out.println("Input not recognized. Please try again.");
-                // validInput stays falsem Loop runs once more
+                // validInput stays false, Loop runs once more
         }
     }
 }
